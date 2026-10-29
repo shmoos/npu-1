@@ -1,5 +1,7 @@
 # NPU-1
 
+[![Local validation](https://github.com/shmoos/npu-1/actions/workflows/verify.yml/badge.svg)](https://github.com/shmoos/npu-1/actions/workflows/verify.yml)
+
 A real SystemVerilog INT8 inference accelerator learning project. The portable RTL and C host driver run together in Verilator on macOS Apple Silicon or Linux. **Physical FPGA deployment has not been performed.**
 
 The current design has a parameterized output-stationary array (default 4×4), signed 8×8→16 multiplication, 32-bit accumulation, 8 KiB of banked operand RAM, a tile controller, bias/ReLU/requantization, and an AXI4-Lite register interface. The fixed host ABI operates a 4×4 tile with `1 ≤ K ≤ 1024`; the host tiles larger M and N.
@@ -9,6 +11,9 @@ The included 64→32→10 digits MLP executes both layers through the RTL. Its *
 ## Start here
 
 ```sh
+git clone https://github.com/shmoos/npu-1.git
+cd npu-1
+
 # macOS: install Verilator and a C/C++ toolchain first
 brew install verilator
 xcode-select --install  # only if Command Line Tools are missing
@@ -29,7 +34,7 @@ Read [the Obsidian roadmap](docs/00-Roadmap.md), [architecture and timing](docs/
 
 ## Evidence and boundaries
 
-`reports/regression.json` records source hashes, tools, exact commands, exit codes and durations. Logs live in `artifacts/verification/`. A failed run records failure and returns nonzero. Individual targets do not replace the full regression report. CI is configured in `.github/workflows/verify.yml`; its remote execution is pending until this repository is pushed.
+`reports/regression.json` records source hashes, tools, exact commands, exit codes and durations. Logs live in `artifacts/verification/`. A failed run records failure and returns nonzero. Individual targets do not replace the full regression report. CI runs on pushes and pull requests using `.github/workflows/verify.yml`. See [GitHub Actions](https://github.com/shmoos/npu-1/actions/workflows/verify.yml) for remote run status.
 
 AWS staging is pinned to an inspected official developer-kit commit. Staging validation is not AWS shell simulation. Vivado synthesis, BRAM/DSP inference, timing closure, AFI creation, hardware correctness, FPGA performance and power remain unverified. No AWS resources were created or charged by this work. This project does not claim an ASIC.
 
