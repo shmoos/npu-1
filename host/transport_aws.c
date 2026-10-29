@@ -56,7 +56,7 @@ npu_transport_t *npu_transport_create_aws(void) {
 #else
 
 npu_transport_t *npu_transport_create_aws(void) {
-    fprintf(stderr, "AWS FPGA SDK not enabled in this build. Use mock transport or compile with -DAWS_FPGA.\n");
+    fprintf(stderr, "AWS FPGA SDK not enabled. After SDK setup, rebuild with make -C host -B AWS=1.\n");
     return NULL;
 }
 

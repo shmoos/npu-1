@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "scope": "source transformation against nine exact pinned upstream template files; full checkout, shell simulation and Vivado not run",
+  "upstream_commit": "c34f88e97eaf8a9b6ea7a3516ab65ee64690ab82",
+  "staged_files": 20,
+  "source_sha256": "493845fc356ceda935594774b60bdca9a3761924fca7722d3ddb6b3f6d07b59f"
+}

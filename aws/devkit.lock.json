@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/aws/aws-fpga",
+  "branch": "f2",
+  "commit": "c34f88e97eaf8a9b6ea7a3516ab65ee64690ab82",
+  "checked_date": "2026-10-29",
+  "template_sha256": {
+    "design/cl_axil_reg_access.sv": "d728ab13b83fdcc5400933d551ac6c05517ccd339917dd1393b79de87020875b",
+    "build/scripts/encrypt.tcl": "e537f07fa0ee38847633e1748bffa085f4d02c09323688349d8bf1365c834671",
+    "build/scripts/synth_cl_axil_reg_access.tcl": "985b49b97bab7599750e7e630e374acad7fdf13a0f682c376f38af5f05c332bf",
+    "verif/scripts/top.xsim.f": "b611c6f2655ac6739982e238d65dcf0d11e05705d92b68010aa5427614b06c8d"
+  }
+}

@@ -1,17 +1,22 @@
-# Arithmetic contract
+# Exact integer arithmetic
 
-Implemented datapath: signed INT8 inputs, signed 16-bit product, signed INT32 output-stationary sums. Reset and clear set the sum to zero. Both operand-valid bits and step must be asserted to add a product.
+[[architecture]] · [[register_map]]
 
-`−128 × −128 = 16384`, `−128 × 127 = −16256`, and `127 × 127 = 16129`. Sign extension occurs before addition. A 33-bit intermediate supports the simulation overflow assertion; the stored result is 32 bits. Overflow is unsupported and must not be interpreted as saturation.
+- Operands: signed two's-complement INT8, −128…127; product: signed INT16. `−128 × −128 = 16384`, not an overflow.
+- PE accumulation: 32-bit two's-complement addition. The standalone PE wraps on overflow; the core's legal K≤1024 ensures `|sum| ≤ 16,777,216`, so no raw dot-product overflow occurs.
+- Bias: signed INT32 per output column. Add using widened arithmetic, then **saturate to [−2³¹, 2³¹−1]** before scaling and before writing C.
+- Mode 0: C=raw accumulator, Y=0. Mode 1: C=saturated(acc+bias), Y=0.
+- Mode 2: C=saturated(acc+bias); z=C×MULT using signed INT64; rounded q is defined below; Y=min(127,max(0,q)).
+- MULT must be 1…2³¹−1 and SHIFT 0…62 in mode 2. The high multiplier bit is rejected, not silently discarded.
 
-For the planned maximum reduction length K=1024, the conservative magnitude bound is `1024 × 16384 = 16,777,216`. The future controller will enforce K; the PE and array do not currently count or enforce it.
+For SHIFT=0, q=z. Otherwise:
 
-The software references use Python integers and NumPy INT64. They validate the signed operand ranges and result bounds before converting output values.
+```text
+q = sign(z) × ((abs(z) + 2^(SHIFT−1)) >> SHIFT)
+```
 
-## Planned inference arithmetic
+Ties round away from zero: 3/2→2 and −3/2→−2. ReLU then maps negatives to zero. The bounded C and MULT keep multiplication and the largest rounding offset inside signed INT64. Zero-point is always zero. Quantization of source floats uses symmetric range −127…127; the raw hardware also accepts −128.
 
-Model tensors use symmetric zero point zero and values −127…127. A real tensor value is represented approximately as `scale × integer`. Use one weight scale per layer initially. Quantize bias at the input-scale times weight-scale, add it once after the full reduction, and require the widened sum to fit INT32.
+The NumPy reference first widens operands to INT64. Multiplying NumPy INT8 arrays directly would overflow before comparison. `postprocess_ref` uses Python integers for fixed-point math, providing an independent oracle. The frozen MLP uses one positive scale per tensor, one requantization multiplier/shift for its hidden layer, and biased INT32 output logits. Argmax selects the class; softmax is unnecessary.
 
-For hidden activations, multiply the biased sum by an offline-selected positive 31-bit integer multiplier, round a right shift using nearest/ties-away-from-zero, apply ReLU, and saturate to the INT8 model range. Use signed 64-bit intermediates. Shift zero is a separate no-shift case. Final biased INT32 logits share one positive scale, allowing integer argmax.
-
-Bias, requantization, ReLU, and model export remain unimplemented until M4. Exact formulas and register settings are in the parent roadmap.
+There is no runtime float arithmetic in the accelerator. Training/calibration are optional offline work; local inference reuses the checked-in frozen model. Accuracy and tensor equivalence are separate tests: correct classifications alone cannot prove correct RTL.

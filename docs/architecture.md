@@ -1,96 +1,73 @@
-# NPU-1 initial hardware contract
+# Architecture and timing
 
-Status: the single PE, skew feeders, and 4×4 array are implemented. The tile engine, memory map, host runtime, and AWS wrapper remain planned.
+[[00-Roadmap]] · [[arithmetic]] · [[register_map]]
 
-## Processing element
+## One command
+
+Compute `C = A[M,K] × B[K,N]` for M,N in 1…4 and K in 1…1024. A host command chooses raw INT32, saturated biased INT32, or biased/requantized/ReLU INT8 output. Results occupy fixed 4×4 slots; only the declared M×N rectangle is meaningful. Host software tiles larger M and N. K splitting is intentionally unsupported.
 
 ```mermaid
 flowchart LR
-    A[Signed INT8 A] --> M[Signed 16-bit product]
-    B[Signed INT8 B] --> M
-    M --> E[Sign extension to INT32]
-    E --> ADD[Widened addition]
-    ACC[INT32 accumulator register] --> ADD
-    ADD --> ACC
-    A --> AR[A forwarding register]
-    B --> BR[B forwarding register]
+  H[C host driver] --> AX[AXI4-Lite adapter]
+  AX --> A[4 activation RAM banks]
+  AX --> B[4 weight RAM banks]
+  A --> S[Lane skew delays]
+  B --> S
+  S --> P[4 by 4 PE mesh]
+  P --> Q[Bias and integer scaling]
+  Q --> R[16 C words and 16 Y bytes]
+  R --> AX
+  CT[Tile controller] --> A
+  CT --> B
+  CT --> S
+  CT --> Q
 ```
 
-One accepted multiply–accumulate operation computes `acc_next = acc + A*B`. Two validity bits must both be set. A and B still forward independently on every enabled step, including a bubble; their validity bits identify whether the forwarded operands are meaningful.
+## Learn from your ALU
 
-| Signal | Width | Meaning |
-|---|---:|---|
-| `clk` | 1 | Rising edge updates state |
-| `reset` | 1 | Synchronous active-high reset; highest priority |
-| `clear` | 1 | Clear sum and forwarding state before a new dot product |
-| `step` | 1 | Advance all PE state; otherwise hold |
-| `a_in`, `b_in` | 8 each | Signed two's-complement operands |
-| `a_valid`, `b_valid` | 1 each | Independent input validity |
-| `a_out`, `b_out` | 8 each | Registered forwarding outputs |
-| `a_valid_out`, `b_valid_out` | 1 each | Registered forwarding validity |
-| `acc` | 32 | Signed accumulator, visible after the updating edge |
+An ALU computes a result from current inputs. A PE adds persistent state: on an enabled edge it forwards operands to its neighbors and, if both valid flags are set, adds their signed product to its accumulator. Nonblocking assignments mean every PE sees its neighbors' **previous** registers on that edge. The product is explicitly 16 bits and sign-extended to 32 bits. Reset and clear take priority over step; step=0 freezes data, valid bits and sums.
 
-## Edge priority
+`mac_pe.sv` contains the datapath. `skew_feeder.sv` delays A row r by r enabled edges and B column c by c edges. `systolic_array_4x4.sv` uses positive `ROWS` and `COLS` parameters; its name preserves the original project API. `npu_core.sv`, its RAM banks, controller, and the host ABI are deliberately fixed at 4×4.
 
-1. Reset clears all registers, regardless of the other inputs.
-2. Otherwise clear clears all registers, even if step is zero. Both input-valid bits must be zero for clear.
-3. Otherwise step advances operand and validity registers. The accumulator advances only when both input-valid bits are high.
-4. Otherwise every register holds. A stalled cycle does not consume its operands.
+## Why the skew is necessary
 
-The core begins with reset; do not depend on simulation power-up values. Drive inputs while the clock is low and compare outputs after the next rising-edge update. Clear and the first valid product occupy separate edges.
+At logical input step k, supply all A[r,k] and B[k,c]. After skew and forwarding, they meet at PE[r,c] on enabled edge `t=k+r+c`, counted from t=0 at the first edge consuming k=0. Without the skew, different reduction indices would meet and yield plausible but incorrect products.
 
-## Arithmetic
+| Enabled edge | PE[0,0] | PE[0,1] | PE[1,0] | PE[1,1] |
+|---|---|---|---|---|
+| 0 | k=0 | — | — | — |
+| 1 | k=1 | k=0 | k=0 | — |
+| 2 | k=2 | k=1 | k=1 | k=0 |
 
-The full signed operand range is −128…127. A signed 16-bit product covers every pair, including `−128 × −128 = 16384`. Sign extension precedes the addition. A 33-bit intermediate makes overflow detectable during simulation; legal results are stored in 32 bits.
+For K tokens, the last product reaches PE[R−1,C−1] at t=K−1+R+C−2. A 4×4 array therefore needs six enabled drain edges after the last input. The controller conservatively includes a settling transition before reading accumulators. Global stalls freeze feeder and mesh together. Arbitrary per-lane valid holes are permitted at the array boundary; a product contributes only when both flags associated with that same input step are true.
 
-The tile-level design will limit K to 1024. Its conservative dot-product bound is `1024 × 16384 = 16,777,216`, below the signed INT32 maximum. The PE itself has no K counter: the future controller is responsible for the operation length. Overflow is a protocol violation detected by an assertion, not a saturating arithmetic feature.
+The independent SV timing oracle uses input history and `t-r-c`, not a copy of the RTL pipes. It checks every accumulator after every edge on 1×1, 3×5 and 4×4 arrays, including random holes and pauses.
 
-The hardware model uses fixed-width arithmetic. The software oracle uses unbounded Python integers, independently checked against NumPy INT64 dot products, to avoid copying hardware overflow mistakes into the expected values.
+## Local memory and ownership
 
-## Directed trace
+Each operand buffer is four banks of 256×32 bits (4 KiB total). Byte write enables let a host pack four adjacent K values into a word. A bank has one write port and one synchronous read port. Host and compute **share** the read port: while BUSY, buffer access returns SLVERR. The compute address reads one word from every bank each cycle, then selects the appropriate byte. This avoids a multiported RAM requirement. HDL requests block RAM; actual FPGA resource inference must be checked in Vivado.
 
-The directed regression performs this sequence. Inspect `artifacts/verification/pe_directed.vcd` alongside the per-edge expected values in `directed.txt`. The scoreboard checks every accumulator and forwarding output.
+Contents are not reset. The host must initialize all K used bytes in each active lane before START. Unused lanes have valid=0. The C/Y buffer is small enough to be registers and is overwritten for every tile. Inactive output slots are unspecified and must be ignored.
 
-| Edge index | Operation | A | B | Valid A/B | Step | Accumulator after edge |
-|---:|---|---:|---:|---|---:|---:|
-| 0 | Reset | 99 | 99 | 1/1 | 0 | 0 |
-| 1 | Clear | 0 | 0 | 0/0 | 0 | 0 |
-| 2 | First MAC | 1 | 4 | 1/1 | 1 | 4 |
-| 3 | Pause | 127 | 127 | 1/1 | 0 | 4 |
-| 4 | B invalid | 90 | −90 | 1/0 | 1 | 4 |
-| 5 | A invalid | −7 | 12 | 0/1 | 1 | 4 |
-| 6 | Second MAC | −2 | 5 | 1/1 | 1 | −6 |
-| 7 | Third MAC | 3 | −6 | 1/1 | 1 | −24 |
-| 8 | Bubble | 0 | 0 | 0/0 | 1 | −24 |
-| 9 | Clear | 0 | 0 | 0/0 | 1 | 0 |
-| 10 | Extreme product | −128 | −128 | 1/1 | 1 | 16,384 |
-| 11 | Reset overrides clear/valid | 127 | 127 | 1/1 | 0 | 0 |
-| 12 | Restart after reset | −128 | 127 | 1/1 | 1 | −16,256 |
+The RAM samples an address at an edge; its output changes after that edge. The AXI adapter latches a read request and responds on the following edge. Reading the RAM's old output on the address handshake was an inherited defect, now covered by consecutive-address and changing-address-after-handshake tests.
 
-The pause at edge 3 holds forwarding outputs as well as the sum. Edges 4 and 5 forward new operand data and validity while leaving the sum unchanged.
+## Controller
 
-## Implemented systolic array
+`IDLE → CHECK → CLEAR → PREFETCH → RUN → DRAIN → POSTPROCESS → DONE → IDLE`.
 
-The array connects A rightward and B downward, with one register hop per PE. The external input at enabled step k is four packed A row values and four packed B column values. The internal feeders delay lane i by i enabled edges. Row i therefore receives A at step k+i and column j receives B at k+j. Each PE consumes the matching reduction index at step k+i+j.
+1. START latches the full configuration and clears stale DONE.
+2. CHECK rejects illegal dimensions, mode or requantization parameters.
+3. CLEAR discards PE and skew state.
+4. PREFETCH accounts for one synchronous RAM read cycle.
+5. RUN consumes K successive operands without external stalls.
+6. DRAIN lets in-flight valid tokens finish.
+7. POSTPROCESS visits 16 outputs; registered valid aligns each result with its store index.
+8. DONE publishes the sequence number and the busy-cycle count after all stores.
 
-After K aligned input vectors, supply six enabled invalid-input edges to drain the array. This is K+6 compute steps in total, excluding clear and any global pauses. At K=4 it is ten enabled edges. Every pause freezes both feeders, all PE registers, and the verification token counter. The output bus packs 16 INT32 sums in row-major order; PE (i,j) occupies bits `32*(4*i+j) +: 32`. Input lane 0 occupies bits 7:0.
+A software reset aborts work, flushes valid pipelines, clears status, and suppresses the abort-edge store. RAM contents are retained. A 50,000-cycle watchdog can force an error; its assignment has priority over normal FSM transitions. The watchdog fault path has not been forcibly exercised. Start/config/RAM writes while busy are rejected at the AXI adapter. The direct core interface is an internal trusted interface, not a second host protocol.
 
-Array clear masks in-flight internal validity before clearing every PE and feeder. External validity must be zero during clear. This allows an explicit clear to discard a partially completed wave without false internal clear/valid violations. Reset can abort at any point.
+The cycle counter measures controller active cycles, excluding host operand loading and result reads. It is not a PCIe timer. For real performance, record host monotonic times separately.
 
-With `NPU_SIM_TAGS` enabled, verification-only token IDs travel with the expected lane delays and data hops; every actual valid operand pair is checked for equal token identity. These tags have no production ports. The C++ scoreboard independently checks all 16 sums and outgoing operand data/validity after every edge, against a Python input-history oracle. Final tiles are also checked against NumPy INT64 matrix multiplication.
+## Intentional limits
 
-### Hand trace of a 2×2 subarray
-
-Take `A=[[1,2,3],[4,5,6]]` and `B=[[7,8],[9,10],[11,12]]`. The top-left 2×2 output is `[[58,64],[139,154]]`. Pad the remaining lanes with zeros when embedding it in the 4×4 array.
-
-| Enabled step | PE(0,0) | PE(0,1) | PE(1,0) | PE(1,1) |
-|---:|---:|---:|---:|---:|
-| 0 | 7 | 0 | 0 | 0 |
-| 1 | 25 | 8 | 28 | 0 |
-| 2 | 58 | 28 | 73 | 32 |
-| 3 | 58 | 64 | 139 | 82 |
-| 4 | 58 | 64 | 139 | 154 |
-
-PE(1,1) finishes two enabled steps after PE(0,0). A full 4×4 tile has a six-step corner-to-corner delay. The directed trace is saved as `artifacts/verification/array_directed.vcd`.
-
-The buffers, synchronous-read latency, host packing, register map, and quantization modes remain proposed contracts in sections 2 and 3 of the parent roadmap. The current array accepts input vectors directly; it has no memory-mapped interface or automatic tile controller yet.
+Single command in flight; no DMA, DDR/HBM traffic, interrupts, sparsity, convolution engine, K tiling or double buffering. One combinational INT64 scaling path is convenient for learning but may limit clock frequency. If timing fails, pipeline post-processing and update valid/store timing before claiming an FPGA clock rate.

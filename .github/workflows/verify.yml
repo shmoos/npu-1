@@ -1,0 +1,26 @@
+name: NPU-1 local validation
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.lock.txt
+      - run: sudo apt-get update && sudo apt-get install -y verilator build-essential
+      - run: python -m pip install -r requirements.lock.txt
+      - run: make regression
+      - run: make host
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: local-verification-evidence
+          path: |
+            reports/
+            artifacts/verification/
