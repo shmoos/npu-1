@@ -1,0 +1,9 @@
+.venv/
+artifacts/
+obj_dir/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.fst
+*.vcd
+.DS_Store

@@ -1,0 +1,87 @@
+{
+  "suite": "all",
+  "status": "pass",
+  "seed_base": 20261025,
+  "started_utc": "2026-10-25T17:46:18.199992+00:00",
+  "tools": {
+    "python": "3.13.7 (v3.13.7:bcee1c32211, Aug 14 2025, 19:10:51) [Clang 16.0.0 (clang-1600.0.26.6)]",
+    "architecture": "arm64",
+    "macos": "27.0.1",
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "verilator": "Verilator 5.052 2026-09-05 rev vUNKNOWN-built20260905",
+    "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin",
+    "packages": {
+      "numpy": "2.5.4",
+      "pytest": "9.1.1",
+      "scikit-learn": "1.9.1"
+    }
+  },
+  "results": {
+    "smoke": {
+      "positive": "pass",
+      "intentional_mismatch": "detected",
+      "waveform": "smoke.vcd"
+    },
+    "pe": {
+      "directed": {
+        "status": "pass",
+        "cycles": 15
+      },
+      "exhaustive": {
+        "status": "pass",
+        "cycles": 131074
+      },
+      "dot_products": {
+        "status": "pass",
+        "cycles": 93779
+      },
+      "control": {
+        "status": "pass",
+        "cycles": 10002
+      },
+      "negative_checks": {
+        "scoreboard_mismatch": "detected",
+        "illegal_clear": "detected"
+      },
+      "single_product_pairs": 65536,
+      "seeded_dot_products": 1000,
+      "maximum_k": 1024
+    },
+    "array": {
+      "directed": {
+        "status": "pass",
+        "cycles": 91,
+        "tiles": 8
+      },
+      "random_tiles": {
+        "status": "pass",
+        "cycles": 28961,
+        "tiles": 1000
+      },
+      "control": {
+        "status": "pass",
+        "cycles": 5001,
+        "tiles": 0
+      },
+      "operand_tag_assertions": "enabled and passed",
+      "compute_schedule": "K+6 enabled edges; stalls excluded"
+    },
+    "python": "..................                                                       [100%]\n18 passed in 0.09s"
+  },
+  "source_sha256": {
+    "rtl/skew_feeder.sv": "5ddf9c3a5c469b363feb1d0e3f500e4c8f73d2417ea30be3fa232785631f61ae",
+    "rtl/systolic_array_4x4.sv": "80e08f10fe27485c8dee5ae3bf37632be9239b43e0edb66bf447e209491f4f85",
+    "rtl/mac_pe.sv": "a5917fdbbb05adde99001df9c85ac1fd79a3541d434b58c1f0b75ea3945f9215",
+    "sim/array_main.cpp": "3bdfa51b8aef66dfadbf7595c6d9f0b876f6251f64738b2ccafd5a2bd1a6210d",
+    "sim/tb_toolchain_smoke.sv": "43bb38c1d8e4781ba4ce721898c2403a5191da1e1838be712342c4aa62c47b4e",
+    "sim/pe_main.cpp": "dafa85d707324ccbefcfd2f26ee37798c400bd532185f22343eefa3602bb20ef",
+    "model/array_ref.py": "698e50dc76b244022d2f04e3e79de718a4045a656acb384d60d1b1568a47279c",
+    "model/__init__.py": "ddb215f5e19b16f93052f3c1a832493ca4205f984d55df41f2a18fa954c890d3",
+    "model/pe_ref.py": "932b4a3830fe881be1ca6348f440c2dcb8a94ed880a0191b90310ac3d3202c4a",
+    "tests/test_reference.py": "ce2e34475811640cb66b45c28af18b81195cf320a639ed8bea21b51ef4ca5cd7",
+    "tests/test_array_reference.py": "2865062a88dba01e8d95cd5bd94a534980a60e32ecdce7d28f02ab7d271b6588",
+    "scripts/run_verification.py": "2ba0e4298253c4dc7c3eb2b7fe855cff172eceffedc8f2dd401290354837333c",
+    "scripts/array_vectors.py": "22f89e1e7ef760da75ec590ad333beed440f85c8e632a18928e1fe60e1043564"
+  },
+  "finished_utc": "2026-10-25T17:46:45.843948+00:00"
+}

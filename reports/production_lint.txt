@@ -1,0 +1,1 @@
+PASS: production array variant without NPU_SIM_TAGS; --assert -Wall, no warnings.
