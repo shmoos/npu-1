@@ -1,0 +1,135 @@
+{
+  "scope": "local RTL simulation; no physical FPGA or AWS shell validation",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "steps": {
+    "fixtures": {
+      "exit_code": 0,
+      "seconds": 0.121,
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/make_fixtures.py",
+        "/tmp/npu1-pcupa_43/fixtures.bin"
+      ]
+    },
+    "host-compile": {
+      "exit_code": 0,
+      "seconds": 0.038,
+      "command": [
+        "cc",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Ihost",
+        "-c",
+        "host/npu_runtime.c",
+        "-o",
+        "/tmp/npu1-pcupa_43/runtime.o"
+      ]
+    },
+    "e2e-build": {
+      "exit_code": 0,
+      "seconds": 2.092,
+      "command": [
+        "verilator",
+        "--cc",
+        "--exe",
+        "--build",
+        "--assert",
+        "-Wall",
+        "--top-module",
+        "npu_axil",
+        "-GAXI_ADDR_WIDTH=32",
+        "--Mdir",
+        "/tmp/npu1-pcupa_43/e2e",
+        "-j",
+        "4",
+        "-CFLAGS",
+        "-I/tmp/npu1-pcupa_43/host",
+        "-LDFLAGS",
+        "/tmp/npu1-pcupa_43/runtime.o",
+        "rtl/npu_pkg.sv",
+        "rtl/mac_pe.sv",
+        "rtl/skew_feeder.sv",
+        "rtl/systolic_array_4x4.sv",
+        "rtl/operand_buffer.sv",
+        "rtl/tile_controller.sv",
+        "rtl/postprocess.sv",
+        "rtl/result_buffer.sv",
+        "rtl/npu_core.sv",
+        "rtl/npu_axil.sv",
+        "/tmp/npu1-pcupa_43/sim/host_sim.cpp"
+      ]
+    },
+    "e2e-seed-1": {
+      "exit_code": 0,
+      "seconds": 4.715,
+      "command": [
+        "/tmp/npu1-pcupa_43/e2e/Vnpu_axil",
+        "/tmp/npu1-pcupa_43/fixtures.bin",
+        "1"
+      ]
+    },
+    "e2e-seed-7": {
+      "exit_code": 0,
+      "seconds": 4.48,
+      "command": [
+        "/tmp/npu1-pcupa_43/e2e/Vnpu_axil",
+        "/tmp/npu1-pcupa_43/fixtures.bin",
+        "7"
+      ]
+    },
+    "e2e-seed-42": {
+      "exit_code": 0,
+      "seconds": 4.496,
+      "command": [
+        "/tmp/npu1-pcupa_43/e2e/Vnpu_axil",
+        "/tmp/npu1-pcupa_43/fixtures.bin",
+        "42"
+      ]
+    }
+  },
+  "source_sha256": {
+    "rtl/mac_pe.sv": "408f285435c9baae40e8b6478c089b7d21e7282ae5d8cec85cd1b858ce60ff58",
+    "rtl/npu_axil.sv": "31d715c5385afd8a47b07b9e6a67bff86829d17d20436f416cc098d2c7a2b990",
+    "rtl/npu_core.sv": "aaa6091955acc19ca81401866655177084e47a4548d8f32567b273c4de329c7d",
+    "rtl/npu_pkg.sv": "1bb9bd5b26dda8f6f473f6c3feebb5d19064b4a72ea81a2e5217511beaa4d085",
+    "rtl/operand_buffer.sv": "3e581b34c9a0616ec151b94020c40e89c42f84fc0ff95eac9abe79ed32ece3c2",
+    "rtl/postprocess.sv": "881920b3415989b1842913025fde49a3f9af2b620d2a754785efa811df49d8ba",
+    "rtl/result_buffer.sv": "58d8e93da520ac9514cade726b47aa5c009a5531a4c0ea2c36d6e0a676cc8bc7",
+    "rtl/skew_feeder.sv": "a0a2ae01600052736ec008735a995db9acd9937754d50aad22e1c09dd20e45f8",
+    "rtl/systolic_array_4x4.sv": "82f634f4a1b2aeae1c5b0c3feeb2079d9a40b165eb02cd17d4f96b7bf7486447",
+    "rtl/tile_controller.sv": "f7572e75aaaac883655722e452b3ef4508cc71c0033e53cc13b76709ad74cf5b",
+    "sim/host_sim.cpp": "1f704bc26fdcd486674eb7dfb33b0cb685f78214c1cd676787ef01b28aaa2376",
+    "sim/tb_array.sv": "799ce285e131ea2956c561fb8a81f2167a47e51da34bb9192b3de6898a0f37bf",
+    "sim/tb_axil.sv": "62c1dc8cf44ca39c0d5d460382ee1d5d8d9ab7f2b624038f7fb7850854435017",
+    "sim/tb_core.sv": "b912456248211ca136bf7f0a8104f18011557a2dbab27b274a2c004ff74cd728",
+    "sim/tb_mac_pe.sv": "e3666826b35ba521129a93281f8d2170581b21633c693661f5ff91aa12c9e221",
+    "sim/tb_timing.sv": "6f23ccc75aa7b1990bc3471519e5642075f1ad90a27f67034a553c6e9387bd19",
+    "host/include/npu_regs.h": "427e6a37b33b8bfddef84a818907e42e053da57a5347370bb2ee64aae8e53c80",
+    "host/npu_runtime.c": "7cc80e0e1f39c077c3757199aeffbd31328604dafa7814fbfd25180eb587f1b7",
+    "host/npu_runtime.h": "31ef8fc5806f53d2e95028a561e8bdbfefa9939324f5218fac9138fd3d0258e1",
+    "host/transport.h": "8d11bd63a7a8d58350f4f9e6fe1584e25d2c1f94c46696a55afcd26a619e0a0d",
+    "host/transport_aws.c": "3515144738c3328eea23642ccb32fddac7ed7f14a0c88f02b8d96d7a1f16158a",
+    "host/validate.cpp": "1fd326c0673a1d245119712105997a440a2fdd15f5704b8fc14b1a463ea31bcc",
+    "host/workload.hpp": "b25d9444e427e17ff3744335769b879531db4bf3af89693e36c384a34fb6270b",
+    "model/__init__.py": "d7630441945b5968924fc70b40ecac996ee5056af9d44192e06acf2b53d99bcb",
+    "model/cycle_model.py": "d5a079657c2e47c52691907577b00080a71dc892aef67c467c7018869d448525",
+    "model/gemm_ref.py": "c227b559686dd809a452790cfc735b1ed3dae4787fe1ec0f201ba7b91c3107ab",
+    "model/inference_ref.py": "3489245c0cfb229f636584ffefb6edef02c07cfe2f75f9b90dc6c32145d98866",
+    "model/packing.py": "bf6026b29c8991b633b5c2441197120b0de8a14cf6e70e7bdb6ce2eae5cf22b4",
+    "model/quantize.py": "d1988ee85c2732db77be42e3e09e2a476728f6d51271827a839e97d31c13c88d",
+    "model/train_digits.py": "4d430e9dd3629f31a2214708395e231df75e24b29ce20fa2d4b5291490f19c29",
+    "scripts/make_fixtures.py": "db61b899697a12f5de3122e5cda9d014fb4e634b1f6c20d4866d670a7868c2c9",
+    "scripts/verify.py": "bba0894f42a9989c29a674f2c877f2c2454f8ad90276c4b4f27644335a78b8cd",
+    "tests/__init__.py": "d7630441945b5968924fc70b40ecac996ee5056af9d44192e06acf2b53d99bcb",
+    "tests/test_end_to_end.py": "3a7a4c307cc9171b7c88a350807e4683c4d6049a5c4dae4d671f6fb3694e1180",
+    "tests/test_packing.py": "2f24b852b0b254bdf0f5ed695f8cd8e83372340b8125224090c82df408c63f75",
+    "tests/test_quantization.py": "523eb0d502b5b33d610173376f6534a5d5329dcffe6ab200d3791cc691341322",
+    "tests/test_reference.py": "1eff3b07dcdd1bb82f42f7e52cd2b2a41795e22f4d000da225ed37e254aee556",
+    "models/digits/quantized_model.json": "3d754b14a03e6cc079e725e207709b8a7e74d4de8c9b9e8dfe305e4e4e4daf2a",
+    "models/digits/test_vectors.json": "68ada17a9b3a616b1a79500430ada255e7471463e5cb04eec4d1f4ceee905297"
+  },
+  "verilator": "Verilator 5.052 2026-09-05 rev vUNKNOWN-built20260905",
+  "passed": true
+}

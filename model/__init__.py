@@ -1,1 +1,1 @@
-"""Independent integer references for NPU-1."""
+"""NPU-1 package."""

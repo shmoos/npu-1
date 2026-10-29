@@ -6,4 +6,9 @@ __pycache__/
 *.pyc
 *.fst
 *.vcd
+*.o
+*.dylib
+*.so
+host/npu_validate
 .DS_Store
+aws/staged/
