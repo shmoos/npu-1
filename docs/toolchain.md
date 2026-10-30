@@ -1,6 +1,6 @@
 # Reproducible tools
 
-CI uses **OSS CAD Suite 2026-10-29**, including Verilator, Yosys with the Slang SystemVerilog frontend, SymbiYosys and Yices. Both `ubuntu-24.04` and `macos-14` use the same dated release. The setup action is pinned to commit `c7845bc0d335c8076aa22047e85972caa8a916df`. Python is 3.12 in CI; dependencies are pinned in `requirements.lock.txt`.
+CI uses **OSS CAD Suite 2026-10-29**, including Verilator, Yosys with the Slang SystemVerilog frontend, SymbiYosys and Yices. Both `ubuntu-24.04` and `macos-15` use the same dated release. The setup action is pinned to commit `c7845bc0d335c8076aa22047e85972caa8a916df`. Python is 3.12 in CI; dependencies are pinned in `requirements.lock.txt`.
 
 Sources: [official suite release](https://github.com/YosysHQ/oss-cad-suite-build/releases/tag/2026-10-29), [official setup action at the pinned revision](https://github.com/YosysHQ/setup-oss-cad-suite/tree/c7845bc0d335c8076aa22047e85972caa8a916df). The release contains Verilator **5.053 devel, v5.052-640-g8c14ab842**, Yosys **0.70+277 / 77dddbd66** and SBY **v0.70-9-g79fc9ed** on the locally exercised Apple Silicon package. Reports record the actual versions on every platform.
 
@@ -36,3 +36,8 @@ The portable RTL uses unpacked arrays, packages, assertions and timed testbenche
 Temporary build directories have no spaces even when the repository path does. Production lint remains strict. The inherited testbenches have narrow clock/initial-assignment/unused-signal waivers; the runner never disables fatal warnings globally.
 
 The C driver is compiled as C11. The C++ host harnesses and simulator runtime explicitly select C++17; relying on the compiler default failed on the hosted macOS runner even though the same source compiled locally. Timed SV benches use the simulator's coroutine-capable build configuration.
+
+
+## GitHub runner maintenance
+
+The workflow moved from `macos-14` to `macos-15` on 2026-10-30. GitHub canceled a verification job before any test step because macOS 14 was in a scheduled retirement brownout; it becomes unsupported on 2026-11-02. See the [official retirement notice](https://github.com/actions/runner-images/issues/13518). The replacement remains a standard Apple Silicon runner; the pinned simulator, formal tools, Python version and all verification gates are unchanged. Historical reports retain the runner names they actually used.
