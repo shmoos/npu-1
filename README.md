@@ -37,7 +37,7 @@ Read [the Obsidian roadmap](docs/00-Roadmap.md), [architecture and timing](docs/
 
 ## Evidence and boundaries
 
-`reports/regression.json` records source hashes, tools, exact commands, exit codes and durations. Logs live in `artifacts/verification/`. A failed run records failure and returns nonzero. Individual targets do not replace the full regression report. CI runs on pushes and pull requests using `.github/workflows/verify.yml`. Linux and macOS both passed [the recorded CI run](https://github.com/shmoos/npu-1/actions/runs/41001151246), including the image demo and formal proofs. Exact tested revision and artifact checks are in `reports/ci.json`.
+`reports/regression.json` records source hashes, tools, exact commands, exit codes and durations. Logs live in `artifacts/verification/`. A failed run records failure and returns nonzero. Individual targets do not replace the full regression report. CI runs on pushes and pull requests using `.github/workflows/verify.yml`. Linux and macOS 15 both passed [the recorded CI run](https://github.com/shmoos/npu-1/actions/runs/41112122067), including the image demo and formal proofs. Exact tested revision and artifact checks are in `reports/ci.json`.
 
 AWS staging is pinned to an inspected official developer-kit commit. Staging validation is not AWS shell simulation. Vivado synthesis, BRAM/DSP inference, timing closure, AFI creation, hardware correctness, FPGA performance and power remain unverified. No AWS resources were created or charged by this work. This project does not claim an ASIC.
 

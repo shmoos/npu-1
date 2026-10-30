@@ -1,4 +1,4 @@
-# Verification evidence — 2026-10-29
+# Verification evidence — 2026-10-30
 
 `reports/regression.json` is the latest complete local simulation report. `reports/formal.json` records the separate proofs; `reports/demo-smoke.json` records the image CLI checks. Each report identifies the source/tool inputs it tested. Earlier target reports remain dated snapshots, not substitutes for the current complete run. Logs are retained under `artifacts/` and uploaded by CI.
 
@@ -30,7 +30,9 @@ The old watchdog override applied even in `ST_ERROR`. After expiry, it repeatedl
 
 Use the [pinned toolchain](toolchain.md), then `make regression formal`. The local host is macOS arm64 with Python 3.13.7; CI selects Python 3.12, Linux x86-64 and macOS arm64. Reports record actual versions. The runner builds in fresh space-free temporary directories, enables assertions, and records failing commands and exit status. Formal missing-tool/inconclusive/timeout outcomes fail rather than being silently skipped.
 
-The first GitHub runs exposed an old-simulator problem. The original lint failure and later Verilator 5.020 array failure remain visible in Actions history; the workflow now pins the dated suite. **Remote verification passed on both platforms:** [run 41001151246](https://github.com/shmoos/npu-1/actions/runs/41001151246), source commit `aa19f6e89fb26e67cedb46d70c31dd39e833f7f2`. Each job ran the 29-step regression, four formal prove/cover tasks, image checks and host build. `reports/ci.json` records the downloaded report hashes, tool versions and source-hash comparison against this checkout. The subsequent evidence-only commit changes documentation/reports and skips redundant CI; the tested source revision is recorded explicitly.
+The first GitHub runs exposed an old-simulator problem. The original lint failure and later Verilator 5.020 array failure remain visible in Actions history; the workflow now pins the dated suite. **Remote verification passed on both platforms:** [run 41112122067](https://github.com/shmoos/npu-1/actions/runs/41112122067), source commit `d6b2338fd52c5a8b5a660db6c443b1382f17e41a`. Each job ran the 29-step regression, four formal prove/cover tasks, image checks and host build. `reports/ci.json` records the downloaded report hashes, tool versions and source-hash comparison against this checkout. The subsequent evidence-only commit changes documentation/reports and skips redundant CI; the tested source revision is recorded explicitly.
+
+A fresh run on 2026-10-30 also exposed a GitHub runner retirement issue: macOS 14 was canceled before any tests by a scheduled brownout. The workflow now uses macOS 15 (Apple Silicon), and the run above passed on Ubuntu 24.04 and macOS 15. See the [GitHub retirement notice](https://github.com/actions/runner-images/issues/13518). Earlier failure emails and run records remain historical; they do not describe the current passing source revision.
 
 ## Remaining limits
 

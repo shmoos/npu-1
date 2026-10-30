@@ -1,43 +1,43 @@
 {
-  "recorded_utc": "2026-10-30T04:10:57.552890+00:00",
-  "run_id": 41001151246,
-  "url": "https://github.com/shmoos/npu-1/actions/runs/41001151246",
-  "tested_commit": "aa19f6e89fb26e67cedb46d70c31dd39e833f7f2",
+  "recorded_utc": "2026-10-30T19:07:45.491564+00:00",
+  "run_id": 41112122067,
+  "url": "https://github.com/shmoos/npu-1/actions/runs/41112122067",
+  "tested_commit": "d6b2338fd52c5a8b5a660db6c443b1382f17e41a",
   "conclusion": "success",
   "source_hashes_match_local": true,
   "jobs": [
     {
-      "name": "verify (ubuntu-24.04)",
+      "name": "verify (macos-15)",
       "conclusion": "success",
-      "url": "https://github.com/shmoos/npu-1/actions/runs/41001151246/job/123885593694"
+      "url": "https://github.com/shmoos/npu-1/actions/runs/41112122067/job/124256648927"
     },
     {
-      "name": "verify (macos-14)",
+      "name": "verify (ubuntu-24.04)",
       "conclusion": "success",
-      "url": "https://github.com/shmoos/npu-1/actions/runs/41001151246/job/123885594116"
+      "url": "https://github.com/shmoos/npu-1/actions/runs/41112122067/job/124256649942"
     }
   ],
   "artifacts": [
     {
-      "artifact": "local-verification-macos-14",
+      "artifact": "local-verification-macos-15",
       "reports": {
         "regression": {
           "passed": true,
-          "file_sha256": "0df371d4493768c2dc62cebda65f723931bf643b206c632783ac312c31b8fa45",
+          "file_sha256": "b11c203f26cebc1a6e2e5d151305060babaf0efc29273f3c88d4ca98fbcd54d4",
           "steps": 29
         },
         "formal": {
           "passed": true,
-          "file_sha256": "0e013d4854b4b2bdedeb11b6059784d1b98ebf56206dfa5759deef695dbfca45",
+          "file_sha256": "8ec88208cbd059c87facd6aa02b548f5ba729c207ca49129e81f22f8be3feefe",
           "steps": 4
         },
         "demo-smoke": {
           "passed": true,
-          "file_sha256": "4d2b9a55a4adcca339c119d2df7e6331a9831bee9da632e805c97b0bde24e8c8",
+          "file_sha256": "5424b80ed84877fa90054abad4a474f998597b14370ca3fd0bb284618f40d0cf",
           "steps": 7
         }
       },
-      "platform": "macOS-14.8.9-arm64-arm-64bit",
+      "platform": "macOS-15.8.2-arm64-arm-64bit",
       "python": "3.12.10 (v3.12.10:0cc81280367, Apr  8 2025, 08:46:59) [Clang 13.0.0 (clang-1300.0.29.30)]",
       "verilator": "Verilator 5.053 devel rev v5.052-640-g8c14ab842 (mod)",
       "yosys": "Yosys 0.70+277 (git sha1 77dddbd66, Release, Clang /usr/local/osxcross/target/bin/aarch64-apple-darwin25.5-clang++ 21.1.8)",
@@ -48,17 +48,17 @@
       "reports": {
         "regression": {
           "passed": true,
-          "file_sha256": "3068c16bf6897c79067dfedccd3564de6d30f28965ed61a1f3f94824b134f95a",
+          "file_sha256": "f6f638fc01355efd3730b4f8eaab49723a53ef4114351c01a0d366a459b7e7f4",
           "steps": 29
         },
         "formal": {
           "passed": true,
-          "file_sha256": "bc2ef82fa6dec68a6c2baa95dd57da6d8afa380ac25e8d12ea0876fd1cd4eded",
+          "file_sha256": "b1969ca903d0718eef077b61423a94ca186affa85a67365e013b201ef7c746d2",
           "steps": 4
         },
         "demo-smoke": {
           "passed": true,
-          "file_sha256": "99208dae902aa68ebc073d7a09c7431f7c1339d4426494392c675854840b915c",
+          "file_sha256": "b909e6996ee187908aa7691ab02d22ea583e8b8ae929745d3ce056e5fe581503",
           "steps": 7
         }
       },
