@@ -1,0 +1,28 @@
+[tasks]
+prove
+cover
+[options]
+prove: mode prove
+cover: mode cover
+depth 16
+[engines]
+smtbmc yices
+[script]
+read_slang --top axil_formal --blackboxed-module npu_core npu_pkg.sv mac_pe.sv skew_feeder.sv systolic_array_4x4.sv operand_buffer.sv tile_controller.sv postprocess.sv result_buffer.sv npu_core.sv npu_axil.sv axil_formal.sv
+# Only the compute backend is abstracted. Every backend output becomes a
+# fresh unconstrained value each cycle; AXI control RTL remains unchanged.
+delete t:npu_core*
+setundef -undriven -anyseq
+prep -top axil_formal
+[files]
+../rtl/npu_pkg.sv
+../rtl/npu_core.sv
+../rtl/npu_axil.sv
+axil_formal.sv
+../rtl/mac_pe.sv
+../rtl/skew_feeder.sv
+../rtl/systolic_array_4x4.sv
+../rtl/operand_buffer.sv
+../rtl/tile_controller.sv
+../rtl/postprocess.sv
+../rtl/result_buffer.sv

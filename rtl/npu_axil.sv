@@ -4,7 +4,8 @@ module npu_axil
   import npu_pkg::*;
 #(
   parameter int AXI_ADDR_WIDTH = 16,
-  parameter int AXI_DATA_WIDTH = 32
+  parameter int AXI_DATA_WIDTH = 32,
+  parameter int unsigned WATCHDOG_CYCLES = 50000
 )(
   input  logic                      clk,
   input  logic                      rst_n,
@@ -94,7 +95,7 @@ module npu_axil
   logic [31:0] y_host_rdata;
 
   // Instantiate NPU Core
-  npu_core core_inst (
+  npu_core #(.WATCHDOG_CYCLES(WATCHDOG_CYCLES)) core_inst (
     .clk                  (clk),
     .rst_n                (rst_n),
     .start_cmd            (cmd_start),

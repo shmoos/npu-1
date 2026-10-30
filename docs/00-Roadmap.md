@@ -68,6 +68,7 @@ Run `make test-axil` and `make demo`. The randomized C++ bus driver holds BREADY
 - [x] Frozen 64→32→10 digits MLP and NumPy integer reference.
 - [x] Hidden activations from RTL become inputs to the second RTL layer.
 - [x] Every hidden activation and logit compared, plus classification accuracy.
+- [x] Single-image RTL inference with visual activations/cycle report; see [[image_demo]].
 - [ ] Read the scale values in `models/digits/quantized_model.json`.
 - [ ] Work one positive and one negative rounding example from [[arithmetic]].
 - [ ] Optionally train a new model in a separate output folder after installing `requirements-training.txt`; keep the original fixtures for regression.
@@ -79,9 +80,11 @@ Run `make demo`; do not substitute a pure Python tiled calculation for RTL infer
 - [x] Lint and deterministic self-checking tests with failure exit codes.
 - [x] K boundary/random cases and all three post-processing modes.
 - [x] Source hashes and retained logs; Git milestones.
+- [x] Concurrent AXI stress, reset phases, forced watchdog timeout and recovery.
+- [x] PE control and AXI adapter induction proofs, with reachability witnesses.
 - [ ] Push to your chosen remote and inspect the first CI run.
 - [ ] Optional: enable trace capture or inspect a waveform manually; waveform review is not currently claimed.
-- [ ] Optional: coverage measurement or formal proofs. Assertions in simulation are not a formal proof.
+- [ ] Optional: measure functional/line coverage and extend formal proofs to more blocks. Read `formal/README.md` for the current limited proof scope.
 
 ## 7. Prepare AWS F2
 

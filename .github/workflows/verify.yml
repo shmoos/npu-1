@@ -12,17 +12,19 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      # Pin simulator, synthesis frontend, solvers, and formal runner together.
+      - uses: YosysHQ/setup-oss-cad-suite@c7845bc0d335c8076aa22047e85972caa8a916df
+        with:
+          version: '2026-10-29'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
           cache: pip
           cache-dependency-path: requirements.lock.txt
-      - if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y verilator build-essential
-      - if: runner.os == 'macOS'
-        run: brew install verilator
       - run: python -m pip install -r requirements.lock.txt
       - run: make regression
+      - run: make formal
       - run: make host
       - uses: actions/upload-artifact@v4
         if: always()
@@ -31,3 +33,5 @@ jobs:
           path: |
             reports/
             artifacts/verification/
+            artifacts/formal/
+            artifacts/demo-smoke/

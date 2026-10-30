@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-import json, struct, sys
+import argparse, json, struct, sys
 from pathlib import Path
 import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from model.gemm_ref import postprocess_ref
 from model.inference_ref import IntegerInferenceEngine
-rng=np.random.default_rng(20261029)
-with open(sys.argv[1],'wb') as f:
+parser=argparse.ArgumentParser()
+parser.add_argument('output')
+parser.add_argument('--seed',type=int,default=20261029)
+args=parser.parse_args()
+rng=np.random.default_rng(args.seed)
+with open(args.output,'wb') as f:
  def words(*xs):f.write(struct.pack('<'+'I'*len(xs),*xs))
  def data(x,dtype):f.write(np.asarray(x,dtype=dtype).tobytes())
  cases=160;words(0x4e505531,cases)
@@ -21,8 +25,8 @@ with open(sys.argv[1],'wb') as f:
    for col in range(n):c[r,col],y[r,col]=postprocess_ref(int(raw[r,col]),int(bias[col]),mode,mult,shift)
   words(m,n,k,mode,mult,shift);data(a,'i1');data(b,'i1');data(bias,'<i4');data(c,'<i4');data(y,'i1')
  engine=IntegerInferenceEngine('models/digits/quantized_model.json');v=json.load(open('models/digits/test_vectors.json'))
- print('vector keys',list(v))
+
  data(engine.w1,'i1');data(engine.b1,'<i4');words(engine.requant_mult_1,engine.requant_shift_1);data(engine.w2,'i1');data(engine.b2,'<i4')
  x=engine.quantize_input(np.asarray(v['test_inputs_norm']));labels=np.asarray(v['test_labels'],dtype=np.uint8)
  _,t=engine.run_direct(x);words(len(x));data(x,'i1');data(t['hidden_i8'],'i1');data(t['logits_i32'],'<i4');data(labels,'u1')
- print('Generated',cases,'random cases and',len(x),'digits samples')
+ print('Generated',cases,'random cases and',len(x),'digits samples; arithmetic seed',args.seed)

@@ -2,6 +2,7 @@
 
 module npu_core
   import npu_pkg::*;
+#(parameter int unsigned WATCHDOG_CYCLES = 50000)
 (
   input  logic        clk,
   input  logic        rst_n,
@@ -190,7 +191,7 @@ module npu_core
   );
 
   // 7. Tile Controller
-  tile_controller ctrl_inst (
+  tile_controller #(.WATCHDOG_CYCLES(WATCHDOG_CYCLES)) ctrl_inst (
     .clk                  (clk),
     .rst_n                (rst_n),
     .start_cmd            (start_cmd),

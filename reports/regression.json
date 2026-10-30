@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-10-29T21:55:38.047733+00:00",
+  "timestamp_utc": "2026-10-30T04:01:14.054282+00:00",
   "python": "3.13.7 (v3.13.7:bcee1c32211, Aug 14 2025, 19:10:51) [Clang 16.0.0 (clang-1600.0.26.6)]",
   "numpy": "2.2.6",
   "pytest": "9.0.2",
@@ -8,7 +8,7 @@
   "steps": {
     "lint": {
       "exit_code": 0,
-      "seconds": 0.104,
+      "seconds": 0.14,
       "command": [
         "verilator",
         "--lint-only",
@@ -31,7 +31,7 @@
     },
     "model": {
       "exit_code": 0,
-      "seconds": 0.464,
+      "seconds": 0.63,
       "command": [
         "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
         "-m",
@@ -43,7 +43,7 @@
     },
     "test-pe-build": {
       "exit_code": 0,
-      "seconds": 2.644,
+      "seconds": 2.926,
       "command": [
         "verilator",
         "--binary",
@@ -55,7 +55,7 @@
         "--top-module",
         "tb_mac_pe",
         "--Mdir",
-        "/tmp/npu1-8jv89_pw/test-pe",
+        "/tmp/npu1-setm1ppb/test-pe",
         "-j",
         "4",
         "rtl/npu_pkg.sv",
@@ -74,15 +74,15 @@
     },
     "test-pe": {
       "exit_code": 0,
-      "seconds": 0.357,
+      "seconds": 0.249,
       "command": [
-        "/tmp/npu1-8jv89_pw/test-pe/Vtb_mac_pe"
+        "/tmp/npu1-setm1ppb/test-pe/Vtb_mac_pe"
       ],
       "expected_exit_code": 0
     },
     "test-array-build": {
       "exit_code": 0,
-      "seconds": 2.429,
+      "seconds": 2.68,
       "command": [
         "verilator",
         "--binary",
@@ -94,7 +94,7 @@
         "--top-module",
         "tb_array",
         "--Mdir",
-        "/tmp/npu1-8jv89_pw/test-array",
+        "/tmp/npu1-setm1ppb/test-array",
         "-j",
         "4",
         "rtl/npu_pkg.sv",
@@ -113,15 +113,15 @@
     },
     "test-array": {
       "exit_code": 0,
-      "seconds": 0.057,
+      "seconds": 0.058,
       "command": [
-        "/tmp/npu1-8jv89_pw/test-array/Vtb_array"
+        "/tmp/npu1-setm1ppb/test-array/Vtb_array"
       ],
       "expected_exit_code": 0
     },
     "test-core-build": {
       "exit_code": 0,
-      "seconds": 2.33,
+      "seconds": 2.6,
       "command": [
         "verilator",
         "--binary",
@@ -133,7 +133,7 @@
         "--top-module",
         "tb_core",
         "--Mdir",
-        "/tmp/npu1-8jv89_pw/test-core",
+        "/tmp/npu1-setm1ppb/test-core",
         "-j",
         "4",
         "rtl/npu_pkg.sv",
@@ -152,15 +152,15 @@
     },
     "test-core": {
       "exit_code": 0,
-      "seconds": 0.734,
+      "seconds": 0.065,
       "command": [
-        "/tmp/npu1-8jv89_pw/test-core/Vtb_core"
+        "/tmp/npu1-setm1ppb/test-core/Vtb_core"
       ],
       "expected_exit_code": 0
     },
     "test-axil-build": {
       "exit_code": 0,
-      "seconds": 2.476,
+      "seconds": 2.601,
       "command": [
         "verilator",
         "--binary",
@@ -172,7 +172,7 @@
         "--top-module",
         "tb_axil",
         "--Mdir",
-        "/tmp/npu1-8jv89_pw/test-axil",
+        "/tmp/npu1-setm1ppb/test-axil",
         "-j",
         "4",
         "rtl/npu_pkg.sv",
@@ -191,15 +191,15 @@
     },
     "test-axil": {
       "exit_code": 0,
-      "seconds": 0.05,
+      "seconds": 0.042,
       "command": [
-        "/tmp/npu1-8jv89_pw/test-axil/Vtb_axil"
+        "/tmp/npu1-setm1ppb/test-axil/Vtb_axil"
       ],
       "expected_exit_code": 0
     },
     "timing-1x1-build": {
       "exit_code": 0,
-      "seconds": 2.242,
+      "seconds": 2.491,
       "command": [
         "verilator",
         "--binary",
@@ -212,7 +212,7 @@
         "-GR=1",
         "-GC=1",
         "--Mdir",
-        "/tmp/npu1-8jv89_pw/timing-1x1",
+        "/tmp/npu1-setm1ppb/timing-1x1",
         "-j",
         "4",
         "rtl/npu_pkg.sv",
@@ -233,13 +233,13 @@
       "exit_code": 0,
       "seconds": 0.047,
       "command": [
-        "/tmp/npu1-8jv89_pw/timing-1x1/Vtb_timing"
+        "/tmp/npu1-setm1ppb/timing-1x1/Vtb_timing"
       ],
       "expected_exit_code": 0
     },
     "timing-3x5-build": {
       "exit_code": 0,
-      "seconds": 2.248,
+      "seconds": 2.497,
       "command": [
         "verilator",
         "--binary",
@@ -252,7 +252,7 @@
         "-GR=3",
         "-GC=5",
         "--Mdir",
-        "/tmp/npu1-8jv89_pw/timing-3x5",
+        "/tmp/npu1-setm1ppb/timing-3x5",
         "-j",
         "4",
         "rtl/npu_pkg.sv",
@@ -271,15 +271,15 @@
     },
     "timing-3x5": {
       "exit_code": 0,
-      "seconds": 0.054,
+      "seconds": 0.044,
       "command": [
-        "/tmp/npu1-8jv89_pw/timing-3x5/Vtb_timing"
+        "/tmp/npu1-setm1ppb/timing-3x5/Vtb_timing"
       ],
       "expected_exit_code": 0
     },
     "timing-4x4-build": {
       "exit_code": 0,
-      "seconds": 2.272,
+      "seconds": 2.541,
       "command": [
         "verilator",
         "--binary",
@@ -292,7 +292,7 @@
         "-GR=4",
         "-GC=4",
         "--Mdir",
-        "/tmp/npu1-8jv89_pw/timing-4x4",
+        "/tmp/npu1-setm1ppb/timing-4x4",
         "-j",
         "4",
         "rtl/npu_pkg.sv",
@@ -311,15 +311,15 @@
     },
     "timing-4x4": {
       "exit_code": 0,
-      "seconds": 0.044,
+      "seconds": 0.047,
       "command": [
-        "/tmp/npu1-8jv89_pw/timing-4x4/Vtb_timing"
+        "/tmp/npu1-setm1ppb/timing-4x4/Vtb_timing"
       ],
       "expected_exit_code": 0
     },
     "host-cli-build": {
       "exit_code": 0,
-      "seconds": 0.647,
+      "seconds": 0.654,
       "command": [
         "make",
         "-C",
@@ -329,7 +329,7 @@
     },
     "host-unavailable": {
       "exit_code": 1,
-      "seconds": 0.104,
+      "seconds": 0.037,
       "command": [
         "host/npu_validate",
         "--aws",
@@ -338,19 +338,9 @@
       ],
       "expected_exit_code": 1
     },
-    "fixtures": {
-      "exit_code": 0,
-      "seconds": 0.163,
-      "command": [
-        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
-        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/make_fixtures.py",
-        "/tmp/npu1-8jv89_pw/fixtures.bin"
-      ],
-      "expected_exit_code": 0
-    },
     "host-compile": {
       "exit_code": 0,
-      "seconds": 0.038,
+      "seconds": 0.037,
       "command": [
         "cc",
         "-std=c11",
@@ -361,13 +351,13 @@
         "-c",
         "host/npu_runtime.c",
         "-o",
-        "/tmp/npu1-8jv89_pw/runtime.o"
+        "/tmp/npu1-setm1ppb/runtime.o"
       ],
       "expected_exit_code": 0
     },
     "e2e-build": {
       "exit_code": 0,
-      "seconds": 1.969,
+      "seconds": 2.187,
       "command": [
         "verilator",
         "--cc",
@@ -379,13 +369,13 @@
         "npu_axil",
         "-GAXI_ADDR_WIDTH=32",
         "--Mdir",
-        "/tmp/npu1-8jv89_pw/e2e",
+        "/tmp/npu1-setm1ppb/e2e",
         "-j",
         "4",
         "-CFLAGS",
-        "-I/tmp/npu1-8jv89_pw/host",
+        "-I/tmp/npu1-setm1ppb/host",
         "-LDFLAGS",
-        "/tmp/npu1-8jv89_pw/runtime.o",
+        "/tmp/npu1-setm1ppb/runtime.o",
         "rtl/npu_pkg.sv",
         "rtl/mac_pe.sv",
         "rtl/skew_feeder.sv",
@@ -396,64 +386,157 @@
         "rtl/result_buffer.sv",
         "rtl/npu_core.sv",
         "rtl/npu_axil.sv",
-        "/tmp/npu1-8jv89_pw/sim/host_sim.cpp"
+        "/tmp/npu1-setm1ppb/sim/host_sim.cpp"
+      ],
+      "expected_exit_code": 0
+    },
+    "fixtures-20261029": {
+      "exit_code": 0,
+      "seconds": 0.171,
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/make_fixtures.py",
+        "/tmp/npu1-setm1ppb/fixtures.bin",
+        "--seed",
+        "20261029"
       ],
       "expected_exit_code": 0
     },
     "e2e-seed-1": {
       "exit_code": 0,
-      "seconds": 4.524,
+      "seconds": 5.005,
       "command": [
-        "/tmp/npu1-8jv89_pw/e2e/Vnpu_axil",
-        "/tmp/npu1-8jv89_pw/fixtures.bin",
+        "/tmp/npu1-setm1ppb/e2e/Vnpu_axil",
+        "/tmp/npu1-setm1ppb/fixtures.bin",
         "1"
+      ],
+      "expected_exit_code": 0
+    },
+    "fixtures-20261030": {
+      "exit_code": 0,
+      "seconds": 0.128,
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/make_fixtures.py",
+        "/tmp/npu1-setm1ppb/fixtures.bin",
+        "--seed",
+        "20261030"
       ],
       "expected_exit_code": 0
     },
     "e2e-seed-7": {
       "exit_code": 0,
-      "seconds": 4.45,
+      "seconds": 4.912,
       "command": [
-        "/tmp/npu1-8jv89_pw/e2e/Vnpu_axil",
-        "/tmp/npu1-8jv89_pw/fixtures.bin",
+        "/tmp/npu1-setm1ppb/e2e/Vnpu_axil",
+        "/tmp/npu1-setm1ppb/fixtures.bin",
         "7"
+      ],
+      "expected_exit_code": 0
+    },
+    "fixtures-20261031": {
+      "exit_code": 0,
+      "seconds": 0.125,
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/make_fixtures.py",
+        "/tmp/npu1-setm1ppb/fixtures.bin",
+        "--seed",
+        "20261031"
       ],
       "expected_exit_code": 0
     },
     "e2e-seed-42": {
       "exit_code": 0,
-      "seconds": 4.469,
+      "seconds": 4.907,
       "command": [
-        "/tmp/npu1-8jv89_pw/e2e/Vnpu_axil",
-        "/tmp/npu1-8jv89_pw/fixtures.bin",
+        "/tmp/npu1-setm1ppb/e2e/Vnpu_axil",
+        "/tmp/npu1-setm1ppb/fixtures.bin",
         "42"
+      ],
+      "expected_exit_code": 0
+    },
+    "watchdog-build": {
+      "exit_code": 0,
+      "seconds": 2.164,
+      "command": [
+        "verilator",
+        "--cc",
+        "--exe",
+        "--build",
+        "--assert",
+        "-Wall",
+        "--top-module",
+        "npu_axil",
+        "-GAXI_ADDR_WIDTH=32",
+        "-GWATCHDOG_CYCLES=64",
+        "--Mdir",
+        "/tmp/npu1-setm1ppb/watchdog",
+        "-j",
+        "4",
+        "-CFLAGS",
+        "-I/tmp/npu1-setm1ppb/host",
+        "-LDFLAGS",
+        "/tmp/npu1-setm1ppb/runtime.o",
+        "rtl/npu_pkg.sv",
+        "rtl/mac_pe.sv",
+        "rtl/skew_feeder.sv",
+        "rtl/systolic_array_4x4.sv",
+        "rtl/operand_buffer.sv",
+        "rtl/tile_controller.sv",
+        "rtl/postprocess.sv",
+        "rtl/result_buffer.sv",
+        "rtl/npu_core.sv",
+        "rtl/npu_axil.sv",
+        "/tmp/npu1-setm1ppb/sim/watchdog_sim.cpp"
+      ],
+      "expected_exit_code": 0
+    },
+    "watchdog": {
+      "exit_code": 0,
+      "seconds": 0.119,
+      "command": [
+        "/tmp/npu1-setm1ppb/watchdog/Vnpu_axil"
+      ],
+      "expected_exit_code": 0
+    },
+    "image-demo": {
+      "exit_code": 0,
+      "seconds": 4.308,
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/demo_smoke.py"
       ],
       "expected_exit_code": 0
     }
   },
   "build_sha256": {
-    "Makefile": "ee9cf06d27d9664fd22a0b7b475e5b8d85601363337dbd85c1b36974d746d2f8",
+    "Makefile": "06861bc2687dd896f5b054f327c963452afd1e0f1c2aa466749c0ee01f8d0458",
     "host/Makefile": "0218dfffd432126a4c1be6d026fb602b789fbb9cfa52210438d972fc935af1a5",
-    "requirements.lock.txt": "7540ae18e8d31b919c976276c604c815f2aaf3c55f9c1e997fd8fdd709d24792",
-    ".github/workflows/verify.yml": "c0dd1767cbc42042829c0cb33ec7c5c527ad4576ab0cd966cf130a9f0c7bf1ad"
+    "requirements.lock.txt": "2e4ff07a170c66331868dda4b6061decbda823fd7fea295de0adc9d78b8c1f74",
+    ".github/workflows/verify.yml": "4126d262076cc4056aedef32153f2dc81886444e6ffbce001dd3338e515a62a5"
   },
   "source_sha256": {
     "rtl/mac_pe.sv": "408f285435c9baae40e8b6478c089b7d21e7282ae5d8cec85cd1b858ce60ff58",
-    "rtl/npu_axil.sv": "31d715c5385afd8a47b07b9e6a67bff86829d17d20436f416cc098d2c7a2b990",
-    "rtl/npu_core.sv": "aaa6091955acc19ca81401866655177084e47a4548d8f32567b273c4de329c7d",
+    "rtl/npu_axil.sv": "1058cfc8f3591a33741d6ae1fc57f42d9d1d4e091c0e8a03349ba9dd011619e0",
+    "rtl/npu_core.sv": "5294dba28f17b632d39b59b05ac82a97807efd597dd8891195cb88ba10134642",
     "rtl/npu_pkg.sv": "1bb9bd5b26dda8f6f473f6c3feebb5d19064b4a72ea81a2e5217511beaa4d085",
     "rtl/operand_buffer.sv": "3e581b34c9a0616ec151b94020c40e89c42f84fc0ff95eac9abe79ed32ece3c2",
     "rtl/postprocess.sv": "881920b3415989b1842913025fde49a3f9af2b620d2a754785efa811df49d8ba",
     "rtl/result_buffer.sv": "58d8e93da520ac9514cade726b47aa5c009a5531a4c0ea2c36d6e0a676cc8bc7",
     "rtl/skew_feeder.sv": "a0a2ae01600052736ec008735a995db9acd9937754d50aad22e1c09dd20e45f8",
     "rtl/systolic_array_4x4.sv": "82f634f4a1b2aeae1c5b0c3feeb2079d9a40b165eb02cd17d4f96b7bf7486447",
-    "rtl/tile_controller.sv": "f7572e75aaaac883655722e452b3ef4508cc71c0033e53cc13b76709ad74cf5b",
-    "sim/host_sim.cpp": "1f704bc26fdcd486674eb7dfb33b0cb685f78214c1cd676787ef01b28aaa2376",
-    "sim/tb_array.sv": "799ce285e131ea2956c561fb8a81f2167a47e51da34bb9192b3de6898a0f37bf",
-    "sim/tb_axil.sv": "62c1dc8cf44ca39c0d5d460382ee1d5d8d9ab7f2b624038f7fb7850854435017",
-    "sim/tb_core.sv": "b912456248211ca136bf7f0a8104f18011557a2dbab27b274a2c004ff74cd728",
-    "sim/tb_mac_pe.sv": "e3666826b35ba521129a93281f8d2170581b21633c693661f5ff91aa12c9e221",
-    "sim/tb_timing.sv": "6f23ccc75aa7b1990bc3471519e5642075f1ad90a27f67034a553c6e9387bd19",
+    "rtl/tile_controller.sv": "ae80cb0c573b5c6e4aa33ab346c282c61ca929ebac1140888dfae7685a82df63",
+    "sim/axi_sim.hpp": "df28aaf6b6a3e04e2fd40ce112176ce7a120790113429797180fc3e207c97b34",
+    "sim/host_sim.cpp": "ca56f5bc6c7f4063ac2edbd32d9a87400c010f05680e8596c2136f7cd43e2e9c",
+    "sim/predict_sim.cpp": "5bbb0a5d7baca2fce7c6beef66006feac94bf3b941f3350bbda87b75718c6058",
+    "sim/protocol_stress.hpp": "5af2738074dbbf2d85389b30884160f6c98797c153c6bae1a1d46fab49e158e2",
+    "sim/tb_array.sv": "76934acc94a5cf65dba05fd21ce5b937a87916c0928eefb30f1d861e6b135fd4",
+    "sim/tb_axil.sv": "62c40b89e4f98e447b5b8828e8b4eaeaa17f87778a395fd1e22b209ea4581d33",
+    "sim/tb_core.sv": "74f2c618c1a1d5e0441c70327a9df6e7537a7ca665b63780a6d90323968142a1",
+    "sim/tb_mac_pe.sv": "c06d288bbc2f93ece12ec26fa6d1eab83f688b71026653d9022862491cc8b4cc",
+    "sim/tb_timing.sv": "8d85fccb073e1beb76013fd354bb9f8a2d68428dd14d007af5dd680e022cb7b1",
+    "sim/watchdog_sim.cpp": "a9f71f3824a371366f819bccccfa5b35c5197d3d4623ef6b25740908639e0ccc",
     "host/include/npu_regs.h": "427e6a37b33b8bfddef84a818907e42e053da57a5347370bb2ee64aae8e53c80",
     "host/npu_runtime.c": "7cc80e0e1f39c077c3757199aeffbd31328604dafa7814fbfd25180eb587f1b7",
     "host/npu_runtime.h": "31ef8fc5806f53d2e95028a561e8bdbfefa9939324f5218fac9138fd3d0258e1",
@@ -470,17 +553,21 @@
     "model/train_digits.py": "4d430e9dd3629f31a2214708395e231df75e24b29ce20fa2d4b5291490f19c29",
     "scripts/budget_check.py": "69bbc8dda0cfea915a71bb7bcdfe6ee0d6ec559f1edf86c4941ca8c861e61090",
     "scripts/check_aws_staging.py": "c024e0ed704667b47189b627c267a75997153a9611bde46f25dd00218764140a",
-    "scripts/make_fixtures.py": "db61b899697a12f5de3122e5cda9d014fb4e634b1f6c20d4866d670a7868c2c9",
+    "scripts/demo_smoke.py": "fc06492c1d978565e4f4c9cabd74f89d0d954886fc9d15b769045468b718d973",
+    "scripts/formal.py": "8d3eb01fe7d38b0ad82d415f3a5e58501a879435e93711e1185428e1a89a313f",
+    "scripts/make_fixtures.py": "28097b9608f5a243a6b414e8d510320c8b6eb614ec5dfa0130cfc03bf7c12554",
+    "scripts/predict.py": "51a202420309ebae9e3a9044d39768849ec703ba9f6b30140e0a066e971fa6eb",
     "scripts/stage_aws_cl.py": "493845fc356ceda935594774b60bdca9a3761924fca7722d3ddb6b3f6d07b59f",
-    "scripts/verify.py": "1177b0bfe644fb5cbeb46edcd29cc1531fa1456000a274de404a9ed168b4d532",
+    "scripts/verify.py": "a7f6afec9698ee1d89955165d044aba2c94ced38f8ba6cc8261e06960b1baeca",
     "tests/__init__.py": "d7630441945b5968924fc70b40ecac996ee5056af9d44192e06acf2b53d99bcb",
     "tests/test_end_to_end.py": "3a7a4c307cc9171b7c88a350807e4683c4d6049a5c4dae4d671f6fb3694e1180",
     "tests/test_packing.py": "2f24b852b0b254bdf0f5ed695f8cd8e83372340b8125224090c82df408c63f75",
+    "tests/test_predict.py": "880711b0f92d9d55b806458adbc85c6d2e8a9f53cd4b5da49c025ee0e3c09cc7",
     "tests/test_quantization.py": "523eb0d502b5b33d610173376f6534a5d5329dcffe6ab200d3791cc691341322",
     "tests/test_reference.py": "1eff3b07dcdd1bb82f42f7e52cd2b2a41795e22f4d000da225ed37e254aee556",
     "models/digits/quantized_model.json": "3d754b14a03e6cc079e725e207709b8a7e74d4de8c9b9e8dfe305e4e4e4daf2a",
     "models/digits/test_vectors.json": "68ada17a9b3a616b1a79500430ada255e7471463e5cb04eec4d1f4ceee905297"
   },
-  "verilator": "Verilator 5.052 2026-09-05 rev vUNKNOWN-built20260905",
+  "verilator": "Verilator 5.053 devel rev v5.052-640-g8c14ab842 (mod)",
   "passed": true
 }

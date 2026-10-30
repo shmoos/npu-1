@@ -2,6 +2,7 @@
 
 module tile_controller
   import npu_pkg::*;
+#(parameter int unsigned WATCHDOG_CYCLES = 50000)
 (
   input  logic        clk,
   input  logic        rst_n,
@@ -90,7 +91,12 @@ module tile_controller
   // 64-bit Cycle Counter & Watchdog
   logic [63:0] active_cycles;
   logic [15:0] watchdog_timer;
-  localparam logic [15:0] WATCHDOG_LIMIT = 16'd50000;
+  localparam logic [15:0] WATCHDOG_LIMIT = 16'(WATCHDOG_CYCLES);
+
+  // synthesis translate_off
+  initial assert (WATCHDOG_CYCLES > 0 && WATCHDOG_CYCLES <= 65535)
+    else $fatal(1, "WATCHDOG_CYCLES must fit the 16-bit nonzero timer");
+  // synthesis translate_on
 
   // Status and Error Registers
   logic        sticky_done;
@@ -297,8 +303,10 @@ module tile_controller
 
         default: state <= ST_IDLE;
       endcase
-      // Last assignment wins: watchdog must override every state transition.
-      if (state != ST_IDLE && watchdog_timer >= WATCHDOG_LIMIT) begin
+      // Timeout overrides active work, but terminal states must retire to IDLE.
+      // Re-entering ST_ERROR here would retain BUSY until the timer wrapped.
+      if (state != ST_IDLE && state != ST_ERROR && state != ST_DONE &&
+          watchdog_timer >= WATCHDOG_LIMIT) begin
         state <= ST_ERROR;
         latched_error_code <= ERR_WATCHDOG_TIMEOUT;
         sticky_error <= 1'b1;

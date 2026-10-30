@@ -1,0 +1,81 @@
+{
+  "timestamp_utc": "2026-10-30T04:01:15.179139+00:00",
+  "scope": "PE control and AXI adapter only; compute backend abstracted for AXI proof",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "steps": {
+    "pe-prove": {
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.857,
+      "command": [
+        "sby",
+        "-f",
+        "-d",
+        "/tmp/npu-formal-608fsae3/pe-prove",
+        "pe.sby",
+        "prove"
+      ]
+    },
+    "pe-cover": {
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.366,
+      "command": [
+        "sby",
+        "-f",
+        "-d",
+        "/tmp/npu-formal-608fsae3/pe-cover",
+        "pe.sby",
+        "cover"
+      ]
+    },
+    "axil-prove": {
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 1.213,
+      "command": [
+        "sby",
+        "-f",
+        "-d",
+        "/tmp/npu-formal-608fsae3/axil-prove",
+        "axil.sby",
+        "prove"
+      ]
+    },
+    "axil-cover": {
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.697,
+      "command": [
+        "sby",
+        "-f",
+        "-d",
+        "/tmp/npu-formal-608fsae3/axil-cover",
+        "axil.sby",
+        "cover"
+      ]
+    }
+  },
+  "passed": true,
+  "source_sha256": {
+    "rtl/mac_pe.sv": "408f285435c9baae40e8b6478c089b7d21e7282ae5d8cec85cd1b858ce60ff58",
+    "rtl/npu_axil.sv": "1058cfc8f3591a33741d6ae1fc57f42d9d1d4e091c0e8a03349ba9dd011619e0",
+    "rtl/npu_core.sv": "5294dba28f17b632d39b59b05ac82a97807efd597dd8891195cb88ba10134642",
+    "rtl/npu_pkg.sv": "1bb9bd5b26dda8f6f473f6c3feebb5d19064b4a72ea81a2e5217511beaa4d085",
+    "rtl/operand_buffer.sv": "3e581b34c9a0616ec151b94020c40e89c42f84fc0ff95eac9abe79ed32ece3c2",
+    "rtl/postprocess.sv": "881920b3415989b1842913025fde49a3f9af2b620d2a754785efa811df49d8ba",
+    "rtl/result_buffer.sv": "58d8e93da520ac9514cade726b47aa5c009a5531a4c0ea2c36d6e0a676cc8bc7",
+    "rtl/skew_feeder.sv": "a0a2ae01600052736ec008735a995db9acd9937754d50aad22e1c09dd20e45f8",
+    "rtl/systolic_array_4x4.sv": "82f634f4a1b2aeae1c5b0c3feeb2079d9a40b165eb02cd17d4f96b7bf7486447",
+    "rtl/tile_controller.sv": "ae80cb0c573b5c6e4aa33ab346c282c61ca929ebac1140888dfae7685a82df63",
+    "formal/README.md": "244c3abb59fa0f946e812e7bf0da026f8c1ff416d10c9af6d65b45af9cca6b86",
+    "formal/axil.sby": "076d3c47d2c65aefeeae41edafbf801772454964048e53c85bc8c5437750df75",
+    "formal/axil_formal.sv": "633a48828119669c8a5d828636a6b4202c5022fa4d51a4ae225dc99e74c5a164",
+    "formal/pe.sby": "69ae4229155b7dd618793a1668f3c8228c4c9caf559ef5d0ed4ac992de9f1dfc",
+    "formal/pe_formal.sv": "f5abbbd88a429b69e6a43c952691f882019efbf840582cc307150240ba6db084"
+  },
+  "runner_sha256": "8d3eb01fe7d38b0ad82d415f3a5e58501a879435e93711e1185428e1a89a313f",
+  "sby": "SBY v0.70-9-g79fc9ed",
+  "yosys": "Yosys 0.70+277 (git sha1 77dddbd66, Release, Clang /usr/local/osxcross/target/bin/aarch64-apple-darwin25.5-clang++ 21.1.8)",
+  "yices-smt2": "Yices 2.7.0\nCopyright SRI International.\nLinked with GMP 6.3.0\nCopyright Free Software Foundation, Inc.\nBuild date: 2026-10-16\nPlatform: arm-apple-darwin25.5.0 (release)\nRevision: 560f3b375840560a3decaa27c1d2f2e6503c0ab2"
+}

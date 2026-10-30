@@ -1,0 +1,111 @@
+{
+  "timestamp_utc": "2026-10-30T04:01:54.399161+00:00",
+  "passed": true,
+  "cases": [
+    {
+      "name": "sample-0",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/predict.py",
+        "--sample",
+        "0",
+        "--out",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/artifacts/demo-smoke/sample-0"
+      ],
+      "exit_code": 0,
+      "prediction": 5,
+      "core_cycles": 916,
+      "build_key": "4c3df81cd25c16e9e0abc45323b7f623ee5c6ad2a38cd32ac512ea7eb4d0ad9c",
+      "bit_exact": true
+    },
+    {
+      "name": "sample-42",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/predict.py",
+        "--sample",
+        "42",
+        "--out",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/artifacts/demo-smoke/sample-42"
+      ],
+      "exit_code": 0,
+      "prediction": 9,
+      "core_cycles": 916,
+      "build_key": "4c3df81cd25c16e9e0abc45323b7f623ee5c6ad2a38cd32ac512ea7eb4d0ad9c",
+      "bit_exact": true
+    },
+    {
+      "name": "sample-359",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/predict.py",
+        "--sample",
+        "359",
+        "--out",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/artifacts/demo-smoke/sample-359"
+      ],
+      "exit_code": 0,
+      "prediction": 4,
+      "core_cycles": 916,
+      "build_key": "4c3df81cd25c16e9e0abc45323b7f623ee5c6ad2a38cd32ac512ea7eb4d0ad9c",
+      "bit_exact": true
+    },
+    {
+      "name": "light-image",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/predict.py",
+        "--image",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/artifacts/demo-smoke/light digit.png",
+        "--out",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/artifacts/demo-smoke/light-image"
+      ],
+      "exit_code": 0,
+      "prediction": 5,
+      "core_cycles": 916,
+      "build_key": "4c3df81cd25c16e9e0abc45323b7f623ee5c6ad2a38cd32ac512ea7eb4d0ad9c",
+      "bit_exact": true
+    },
+    {
+      "name": "dark-image",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/predict.py",
+        "--image",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/artifacts/demo-smoke/dark digit.png",
+        "--out",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/artifacts/demo-smoke/dark-image"
+      ],
+      "exit_code": 0,
+      "prediction": 5,
+      "core_cycles": 916,
+      "build_key": "4c3df81cd25c16e9e0abc45323b7f623ee5c6ad2a38cd32ac512ea7eb4d0ad9c",
+      "bit_exact": true
+    },
+    {
+      "name": "dark-image",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/predict.py",
+        "--image",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/artifacts/demo-smoke/bad.png",
+        "--out",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/artifacts/demo-smoke/dark-image"
+      ],
+      "exit_code": 1
+    },
+    {
+      "name": "invalid-sample",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/scripts/predict.py",
+        "--sample",
+        "360",
+        "--out",
+        "/Users/yusufjabbar/Documents/ChatGPT/Chip Project/npu-1/artifacts/demo-smoke/invalid-sample"
+      ],
+      "exit_code": 2
+    }
+  ],
+  "runner_sha256": "fc06492c1d978565e4f4c9cabd74f89d0d954886fc9d15b769045468b718d973"
+}
