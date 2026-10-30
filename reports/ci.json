@@ -1,0 +1,73 @@
+{
+  "recorded_utc": "2026-10-30T04:10:57.552890+00:00",
+  "run_id": 41001151246,
+  "url": "https://github.com/shmoos/npu-1/actions/runs/41001151246",
+  "tested_commit": "aa19f6e89fb26e67cedb46d70c31dd39e833f7f2",
+  "conclusion": "success",
+  "source_hashes_match_local": true,
+  "jobs": [
+    {
+      "name": "verify (ubuntu-24.04)",
+      "conclusion": "success",
+      "url": "https://github.com/shmoos/npu-1/actions/runs/41001151246/job/123885593694"
+    },
+    {
+      "name": "verify (macos-14)",
+      "conclusion": "success",
+      "url": "https://github.com/shmoos/npu-1/actions/runs/41001151246/job/123885594116"
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact": "local-verification-macos-14",
+      "reports": {
+        "regression": {
+          "passed": true,
+          "file_sha256": "0df371d4493768c2dc62cebda65f723931bf643b206c632783ac312c31b8fa45",
+          "steps": 29
+        },
+        "formal": {
+          "passed": true,
+          "file_sha256": "0e013d4854b4b2bdedeb11b6059784d1b98ebf56206dfa5759deef695dbfca45",
+          "steps": 4
+        },
+        "demo-smoke": {
+          "passed": true,
+          "file_sha256": "4d2b9a55a4adcca339c119d2df7e6331a9831bee9da632e805c97b0bde24e8c8",
+          "steps": 7
+        }
+      },
+      "platform": "macOS-14.8.9-arm64-arm-64bit",
+      "python": "3.12.10 (v3.12.10:0cc81280367, Apr  8 2025, 08:46:59) [Clang 13.0.0 (clang-1300.0.29.30)]",
+      "verilator": "Verilator 5.053 devel rev v5.052-640-g8c14ab842 (mod)",
+      "yosys": "Yosys 0.70+277 (git sha1 77dddbd66, Release, Clang /usr/local/osxcross/target/bin/aarch64-apple-darwin25.5-clang++ 21.1.8)",
+      "sby": "SBY v0.70-9-g79fc9ed"
+    },
+    {
+      "artifact": "local-verification-ubuntu-24.04",
+      "reports": {
+        "regression": {
+          "passed": true,
+          "file_sha256": "3068c16bf6897c79067dfedccd3564de6d30f28965ed61a1f3f94824b134f95a",
+          "steps": 29
+        },
+        "formal": {
+          "passed": true,
+          "file_sha256": "bc2ef82fa6dec68a6c2baa95dd57da6d8afa380ac25e8d12ea0876fd1cd4eded",
+          "steps": 4
+        },
+        "demo-smoke": {
+          "passed": true,
+          "file_sha256": "99208dae902aa68ebc073d7a09c7431f7c1339d4426494392c675854840b915c",
+          "steps": 7
+        }
+      },
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+      "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]",
+      "verilator": "Verilator 5.053 devel rev v5.052-640-g8c14ab842 (mod)",
+      "yosys": "Yosys 0.70+277 (git sha1 77dddbd66, Release, Clang /usr/bin/clang++ 21.1.8)",
+      "sby": "SBY v0.70-9-g79fc9ed"
+    }
+  ],
+  "scope": "Linux and macOS RTL simulation, host build, image demo and limited formal proofs; no physical FPGA validation"
+}

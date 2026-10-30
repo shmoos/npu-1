@@ -82,7 +82,7 @@ Run `make demo`; do not substitute a pure Python tiled calculation for RTL infer
 - [x] Source hashes and retained logs; Git milestones.
 - [x] Concurrent AXI stress, reset phases, forced watchdog timeout and recovery.
 - [x] PE control and AXI adapter induction proofs, with reachability witnesses.
-- [ ] Push to your chosen remote and inspect the first CI run.
+- [x] Publish the repository and verify Linux/macOS CI; recorded in `reports/ci.json`.
 - [ ] Optional: enable trace capture or inspect a waveform manually; waveform review is not currently claimed.
 - [ ] Optional: measure functional/line coverage and extend formal proofs to more blocks. Read `formal/README.md` for the current limited proof scope.
 

@@ -30,7 +30,7 @@ The old watchdog override applied even in `ST_ERROR`. After expiry, it repeatedl
 
 Use the [pinned toolchain](toolchain.md), then `make regression formal`. The local host is macOS arm64 with Python 3.13.7; CI selects Python 3.12, Linux x86-64 and macOS arm64. Reports record actual versions. The runner builds in fresh space-free temporary directories, enables assertions, and records failing commands and exit status. Formal missing-tool/inconclusive/timeout outcomes fail rather than being silently skipped.
 
-The first GitHub runs exposed an old-simulator problem. The original lint failure and later Verilator 5.020 array failure remain visible in Actions history; the workflow now pins the dated suite. See the [live CI workflow](https://github.com/shmoos/npu-1/actions/workflows/verify.yml) and `reports/ci.json` once a completed remote run is recorded. A local PASS alone is not remote evidence.
+The first GitHub runs exposed an old-simulator problem. The original lint failure and later Verilator 5.020 array failure remain visible in Actions history; the workflow now pins the dated suite. **Remote verification passed on both platforms:** [run 41001151246](https://github.com/shmoos/npu-1/actions/runs/41001151246), source commit `aa19f6e89fb26e67cedb46d70c31dd39e833f7f2`. Each job ran the 29-step regression, four formal prove/cover tasks, image checks and host build. `reports/ci.json` records the downloaded report hashes, tool versions and source-hash comparison against this checkout. The subsequent evidence-only commit changes documentation/reports and skips redundant CI; the tested source revision is recorded explicitly.
 
 ## Remaining limits
 
