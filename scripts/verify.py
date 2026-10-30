@@ -38,11 +38,11 @@ def main():
                 run('host-cli-build',['make','-C','host'],t)
                 run('host-unavailable',['host/npu_validate','--aws','not-used.bin','0'],t,expected_exit=1)
                 run('host-compile',['cc','-std=c11','-Wall','-Wextra','-Werror','-Ihost','-c','host/npu_runtime.c','-o',str(t/'runtime.o')],t)
-                run('e2e-build',['verilator','--cc','--exe','--build','--assert','-Wall','--top-module','npu_axil','-GAXI_ADDR_WIDTH=32','--Mdir',str(t/'e2e'),'-j','4','-CFLAGS','-I'+str(t/'host'),'-LDFLAGS',str(t/'runtime.o')]+files+[str(t/'sim/host_sim.cpp')],t)
+                run('e2e-build',['verilator','--cc','--exe','--build','--assert','-Wall','--top-module','npu_axil','-GAXI_ADDR_WIDTH=32','--Mdir',str(t/'e2e'),'-j','4','-CFLAGS','-std=c++17 -I'+str(t/'host'),'-LDFLAGS',str(t/'runtime.o')]+files+[str(t/'sim/host_sim.cpp')],t)
                 for bus_seed, arithmetic_seed in [(1,20261029),(7,20261030),(42,20261031)]:
                     run('fixtures-'+str(arithmetic_seed),[os.sys.executable,str(ROOT/'scripts/make_fixtures.py'),str(t/'fixtures.bin'),'--seed',str(arithmetic_seed)],ROOT)
                     run('e2e-seed-'+str(bus_seed),[str(t/'e2e/Vnpu_axil'),str(t/'fixtures.bin'),str(bus_seed)],t)
-                run('watchdog-build',['verilator','--cc','--exe','--build','--assert','-Wall','--top-module','npu_axil','-GAXI_ADDR_WIDTH=32','-GWATCHDOG_CYCLES=64','--Mdir',str(t/'watchdog'),'-j','4','-CFLAGS','-I'+str(t/'host'),'-LDFLAGS',str(t/'runtime.o')]+files+[str(t/'sim/watchdog_sim.cpp')],t)
+                run('watchdog-build',['verilator','--cc','--exe','--build','--assert','-Wall','--top-module','npu_axil','-GAXI_ADDR_WIDTH=32','-GWATCHDOG_CYCLES=64','--Mdir',str(t/'watchdog'),'-j','4','-CFLAGS','-std=c++17 -I'+str(t/'host'),'-LDFLAGS',str(t/'runtime.o')]+files+[str(t/'sim/watchdog_sim.cpp')],t)
                 run('watchdog',[str(t/'watchdog/Vnpu_axil')],t)
             if not args.only:
                 run('image-demo',[os.sys.executable,str(ROOT/'scripts/demo_smoke.py')],ROOT)

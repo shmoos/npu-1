@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-10-30T04:01:54.399161+00:00",
+  "timestamp_utc": "2026-10-30T04:07:33.556710+00:00",
   "passed": true,
   "cases": [
     {
@@ -15,7 +15,7 @@
       "exit_code": 0,
       "prediction": 5,
       "core_cycles": 916,
-      "build_key": "4c3df81cd25c16e9e0abc45323b7f623ee5c6ad2a38cd32ac512ea7eb4d0ad9c",
+      "build_key": "e8d7b404edee9976b0439d0ed8c7e64743ef10b6191906093db84a6eefabfb82",
       "bit_exact": true
     },
     {
@@ -31,7 +31,7 @@
       "exit_code": 0,
       "prediction": 9,
       "core_cycles": 916,
-      "build_key": "4c3df81cd25c16e9e0abc45323b7f623ee5c6ad2a38cd32ac512ea7eb4d0ad9c",
+      "build_key": "e8d7b404edee9976b0439d0ed8c7e64743ef10b6191906093db84a6eefabfb82",
       "bit_exact": true
     },
     {
@@ -47,7 +47,7 @@
       "exit_code": 0,
       "prediction": 4,
       "core_cycles": 916,
-      "build_key": "4c3df81cd25c16e9e0abc45323b7f623ee5c6ad2a38cd32ac512ea7eb4d0ad9c",
+      "build_key": "e8d7b404edee9976b0439d0ed8c7e64743ef10b6191906093db84a6eefabfb82",
       "bit_exact": true
     },
     {
@@ -63,7 +63,7 @@
       "exit_code": 0,
       "prediction": 5,
       "core_cycles": 916,
-      "build_key": "4c3df81cd25c16e9e0abc45323b7f623ee5c6ad2a38cd32ac512ea7eb4d0ad9c",
+      "build_key": "e8d7b404edee9976b0439d0ed8c7e64743ef10b6191906093db84a6eefabfb82",
       "bit_exact": true
     },
     {
@@ -79,7 +79,7 @@
       "exit_code": 0,
       "prediction": 5,
       "core_cycles": 916,
-      "build_key": "4c3df81cd25c16e9e0abc45323b7f623ee5c6ad2a38cd32ac512ea7eb4d0ad9c",
+      "build_key": "e8d7b404edee9976b0439d0ed8c7e64743ef10b6191906093db84a6eefabfb82",
       "bit_exact": true
     },
     {

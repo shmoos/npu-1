@@ -34,3 +34,5 @@ Ubuntu's Verilator 5.020 first rejected a blocking-assignment warning in testben
 The portable RTL uses unpacked arrays, packages, assertions and timed testbenches. “Any Verilator 5.x” was too broad a support claim. The dated suite now supplies the tested simulator and formal tools together. Homebrew Verilator 5.052 was used for the earlier baseline; use the pinned suite to reproduce the current full simulation/formal workflow.
 
 Temporary build directories have no spaces even when the repository path does. Production lint remains strict. The inherited testbenches have narrow clock/initial-assignment/unused-signal waivers; the runner never disables fatal warnings globally.
+
+The C driver is compiled as C11. The C++ host harnesses and simulator runtime explicitly select C++17; relying on the compiler default failed on the hosted macOS runner even though the same source compiled locally. Timed SV benches use the simulator's coroutine-capable build configuration.

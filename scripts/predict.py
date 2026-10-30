@@ -57,7 +57,7 @@ def build_simulator():
     """Cache only an executable built from these exact sources and tool versions."""
     tool = subprocess.check_output(["verilator", "--version"], text=True).strip()
     compiler = subprocess.check_output(["c++", "--version"], text=True).splitlines()[0]
-    sources = [ROOT/"scripts/predict.py"]
+    sources = [ROOT/"scripts/predict.py", ROOT/"scripts/verify.py"]
     for directory in ("rtl", "sim", "host"):
         sources += sorted(p for p in (ROOT/directory).rglob("*")
                           if p.suffix in (".sv", ".cpp", ".hpp", ".h", ".c"))
@@ -79,7 +79,7 @@ def build_simulator():
                  "host/npu_runtime.c", "-o", str(t/"runtime.o")],
                 ["verilator", "--cc", "--exe", "--build", "--assert", "-Wall", "--top-module",
                  "npu_axil", "-GAXI_ADDR_WIDTH=32", "--Mdir", str(t/"obj"), "-j", "4",
-                 "-CFLAGS", "-I"+str(t/"host"), "-LDFLAGS", str(t/"runtime.o")]
+                 "-CFLAGS", "-std=c++17 -I"+str(t/"host"), "-LDFLAGS", str(t/"runtime.o")]
                 + ["rtl/"+x+".sv" for x in RTL] + [str(t/"sim/predict_sim.cpp")],
             ]
             with (cache/"build.log").open("w") as log:
