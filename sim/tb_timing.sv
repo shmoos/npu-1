@@ -7,7 +7,10 @@ module tb_timing;
  int ah[160][R],bh[160][C];bit avh[160][R],bvh[160][C];int expected[R][C];
  skew_feeder #(.ROWS(R),.COLS(C)) feeder(clk,rst_n,clear,step,a,av,b,bv,as,avs,bs,bvs);
  systolic_array_4x4 #(.ROWS(R),.COLS(C)) array_dut(clk,rst_n,clear,step,as,avs,bs,bvs,acc);
+  // Behavioral testbench clock; blocking assignment is intentional.
+  /* verilator lint_off BLKSEQ */
  always #5 clk=~clk;
+  /* verilator lint_on BLKSEQ */
  initial begin
    clk=0;rst_n=0;clear=0;step=0;
    repeat(2) @(negedge clk);rst_n=1;

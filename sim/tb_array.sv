@@ -50,7 +50,10 @@ module tb_array;
   );
 
   // Clock generation (100MHz / 10ns period)
+  // Behavioral testbench clock; blocking assignment is intentional.
+  /* verilator lint_off BLKSEQ */
   always #5 clk = ~clk;
+  /* verilator lint_on BLKSEQ */
 
   int errors = 0;
 
